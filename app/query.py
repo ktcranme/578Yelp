@@ -11,9 +11,9 @@ class YelpMongo(object):
     def getCollection(self, coll_name):
         return self.client['yelp'][coll_name]
     
-    def getReviews(self, date_filter={}):
+    def getReviews(self, f={}):
         return self.getCollection('reviews').find(
-            {'date': date_filter},
+            f,
             {'user': 0, '_id': 0} 
         )
     
