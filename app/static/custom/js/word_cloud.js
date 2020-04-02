@@ -1,3 +1,4 @@
+// Creating empty chart
 var chart = Highcharts.chart('word-cloud-panel', {
   accessibility: {
     screenReaderSection: {
@@ -19,19 +20,25 @@ var chart = Highcharts.chart('word-cloud-panel', {
   },
   credits: { enabled: false }
 });
+
+chart.hideNoData();
 chart.showLoading();
 
+//  Fetching data
 fetch('/wordCloud/testing')
   .then(res => {
     return res.json();
   })
   .then(data => {
-    chart.series[0].setData(data);
-    chart.redraw();
+    genWordCloud(data);
     chart.hideLoading();
+  })
+  .catch(()=>{
+    chart.showNoData("Error loading cloud");
   });
 
 
 genWordCloud = (data) => {
-  chart.series.data = data;
+  chart.series[0].setData(data);
+  chart.redraw();
 }
