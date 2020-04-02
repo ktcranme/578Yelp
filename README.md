@@ -5,6 +5,10 @@
 
         pip install -r requirements.txt
 
+3. Download spacy en corpus
+
+        python -m spacy download en
+
 3. Install mongodb
 4. Create database `yelp` with collections `reviews` and `business`
 
