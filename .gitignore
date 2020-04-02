@@ -1,0 +1,5 @@
+notebooks
+.DS_Store
+datasets
+.vscode
+__pycache__
