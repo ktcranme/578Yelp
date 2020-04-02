@@ -4,15 +4,14 @@ class Reviews(YelpClient):
     def __init__(self):
         super().__init__()
     
-    def getReviews(self, f={}):
+    def getReviews(self, f={}, cols={}):
+        cols['_id'] = 0
         res = list(self.getCollection('reviews').find(
             f,
-            {'_id':0, 'user_id': 0}
+            cols
         ))
         self.closeConnection()
         return res
-
-
 
     
 
