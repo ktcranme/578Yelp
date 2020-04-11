@@ -3,3 +3,4 @@ notebooks
 datasets
 .vscode
 __pycache__
+*.pyc
