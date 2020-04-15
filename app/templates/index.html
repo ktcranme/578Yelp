@@ -10,6 +10,7 @@
       crossorigin="anonymous">
     <link rel='stylesheet' href="{{ url_for('static',
       filename='custom/css/style.css')}}">
+      <link rel="shortcut icon" href="">
   </head>
   <body>
     <!-- Image and text -->
@@ -70,18 +71,9 @@
         </div>
         <div class="col-4" id="sentiment-panel">
           <!-- Siddharth code goes here -->
-          sentiment-panel
-
-
-
-
-
-
-
-
-
-
+          sentiment panel
         </div>
+		
       </div>
     </div>
 
@@ -109,5 +101,7 @@
       filename='custom/js/map.js')}}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE4vKarlwoAckgkR2zUMJGP-zxJFo_EtM&callback=initMap"
     async defer></script>
+	  <script src="{{ url_for('static',
+      filename='custom/js/sentiment_panel.js')}}"></script>
   </body>
 </html>

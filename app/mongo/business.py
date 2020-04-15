@@ -21,3 +21,13 @@ class Business(YelpClient):
         ))
         self.closeConnection()
         return res
+
+    def getCategories(self, f={}):
+        res = list(self.getCollection('business').distinct("categories"))    
+        self.closeConnection()
+        return res
+
+    def getRestaurants(self, f={}):
+        res = list(self.getCollection('business').find({}))
+        self.closeConnection()
+        return res

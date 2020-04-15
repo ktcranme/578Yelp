@@ -15,6 +15,7 @@ def is_prod():
         print("running local")
         return False
 
+from app.routes import sentiment_analysis
 
 def create_app():
     # Construct the core application.
@@ -33,4 +34,5 @@ def create_app():
         # Import parts of our application
         app.register_blueprint(word_cloud.word_cloud_bp)
         app.register_blueprint(map.map_bp)
+        app.register_blueprint(sentiment_analysis.sentiment_analysis_bp)
         return app
