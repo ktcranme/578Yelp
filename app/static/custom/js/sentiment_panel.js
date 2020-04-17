@@ -4,7 +4,7 @@ function createChart(series) {
 var chart = Highcharts.chart('sentiment-panel', {
 
  title: {
-  text: 'Average sentiment scores for the restaurant over the years, 2010-2016'
+  text: 'Average sentiment scores for the restaurant over the years, 2010 to 2020'
 },
 
 subtitle: {
@@ -19,7 +19,7 @@ yAxis: {
 
 xAxis: {
   accessibility: {
-      rangeDescription: 'Year : 2010 to 2017'
+      rangeDescription: 'Year : 2010 to 2020'
   }
 },
 
@@ -77,7 +77,8 @@ genSentimentGraph = (jsondata) => {
 	for(i = 0 ; i < jsondata.length ; i++){
 		var obj = {'name' : jsondata[i].name , 'data' : jsondata[i].data};
 		series.push(obj);
-	}
+  }  
+  
 	createChart(series);
-    console.log("chart redraw done...");
+  console.log("chart redraw done...");
 }

@@ -1,4 +1,5 @@
 from app.mongo.yelp_client import YelpClient
+import pymongo
 
 
 class Reviews(YelpClient):
@@ -19,6 +20,6 @@ class Reviews(YelpClient):
         res = list(self.getCollection('reviews').find(
             f,
             cols
-        ))
+        ).sort('date',pymongo.ASCENDING))
         self.closeConnection()
         return res
