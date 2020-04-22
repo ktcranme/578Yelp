@@ -35,6 +35,7 @@ for review in reviews:
     if review['business_id'] in business_ids:
         print("Writing review : " + str(json_object) + " to the reviews file")
         out.write(json_object) 
+        out.write("\n")
     else:
         print("\n\nThe review : " + str(json_object) + " is not a restaurant review\n\n")
 

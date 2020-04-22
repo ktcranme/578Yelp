@@ -20,6 +20,6 @@ class Reviews(YelpClient):
         res = list(self.getCollection('reviews').find(
             f,
             cols
-        ).sort('date',pymongo.ASCENDING))
+        ))#.sort('date',pymongo.ASCENDING)
         self.closeConnection()
         return res

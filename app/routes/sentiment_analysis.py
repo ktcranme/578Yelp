@@ -3,6 +3,8 @@ from app.mongo.reviews import Reviews
 from app.mongo.business import Business
 from app.ml.nlp import WordCloud
 import time
+import pandas as pd
+import numpy as np
 
 sentiment_analysis_bp = Blueprint('sentiment_analysis_api', __name__, url_prefix='/sentimentAnalysis')
 
@@ -14,7 +16,8 @@ def testing():
    businesses = Business()
    reviews = Reviews()
 
-   restaurant_list = ["Dirty South","Chipotle Mexican Grill","Eddie V's Prime Seafood","Firehouse Subs","Flower Child","Wonton Chai Noodle"]
+   restaurant_list = ["Firehouse Subs"]
+ #  ["Dirty South","Chipotle Mexican Grill","Eddie V's Prime Seafood","Firehouse Subs","Flower Child","Wonton Chai Noodle"]
    response = []
    for r in restaurant_list:
       response.append(getScore(businesses, reviews, r))
