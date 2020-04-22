@@ -23,6 +23,27 @@
 
         db.reviews.createIndex({'date':1})
 
+# Delete non-restaurants and canadian establishments
+1. Run on mongo cli or a client
+        
+        var food_ids = []
+        cur = db.business.find(
+            {
+                '$or':[
+                {'categories': {'$not': /.*Restaurants.*/}},
+                    {'state': {'$in': ['AB','BC','MB','NB','NL','NT','NS','NU','ON','PE','QC','SK','YT']}}
+                ]
+            },
+            {'business_id': 1, 'categories':1, 'state':1}
+        );
+        cur.forEach(function(row){
+            food_ids.push(row['business_id'])
+        })
+        print(food_ids.length)
+        db.reviews.deleteMany(
+            {'business_id': {'$in': food_ids}}
+        );
+
 # Run app
 
 1. Run the flask server and head to localhost:5000
