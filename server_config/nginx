@@ -1,0 +1,13 @@
+server {
+	listen 80;
+	server_name 34.71.139.210;
+
+	location /static {
+		alias /home/ashishpadakannaya/578Yelp/app/static;
+	}
+
+	location / {
+		proxy_pass http://localhost:8000;
+		proxy_redirect off;
+	}
+}
