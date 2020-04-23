@@ -9,7 +9,7 @@ def testing():
     
     # fetch all data
     reviews = Reviews()
-    f = {'business_id': 'IkMwuS3eViVHK09npuG1jQ'}
+    f = {'business_id': 'XKOAi4J47i-YEhhHfKkPRQ'}
     res = reviews.getReviews(f=f, cols={'text': 1, 'stars': 1})
     reviews, stars = [], []
     for each in res:
@@ -22,7 +22,7 @@ def testing():
 
     # transform
     resp = []
-    for index, each in enumerate(word_count.most_common(35)):
+    for index, each in enumerate(word_count.most_common(50)):
         resp.append({'name': each[0], 'weight': each[1], 'color': word_color[each[0]]})
 
     return jsonify(resp), 200
