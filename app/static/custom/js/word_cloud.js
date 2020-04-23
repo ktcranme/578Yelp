@@ -15,9 +15,15 @@ var chart = Highcharts.chart('word-cloud-panel', {
   title: {
     text: 'Review word cloud'
   },
-  options: {
-    chart: {
-      height: window.innerHeight + 'px'
+  chart: {
+    type: 'line',
+    backgroundColor: '#FFFFFF',
+    shadow: {
+      color: 'rgba(0, 0, 0, 0.1)',
+      offsetX: 0,
+      offsetY: 2,
+      opacity: '0.5',
+      width: 10
     }
   },
   credits: { enabled: false }
@@ -35,7 +41,7 @@ fetch('/wordCloud/testing')
     genWordCloud(data);
     chart.hideLoading();
   })
-  .catch(()=>{
+  .catch(() => {
     chart.showNoData("Error loading cloud");
   });
 
