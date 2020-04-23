@@ -1,5 +1,6 @@
-from flask import Flask, render_template
+from flask import Flask
 from app.routes import word_cloud
+
 
 def create_app():
     # Construct the core application.
