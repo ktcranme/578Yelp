@@ -27,7 +27,7 @@
 # Delete non-restaurants and canadian establishments
 1. Run on mongo cli or a client
         
-        var food_ids = []
+        var food_ids = [];
         cur = db.business.find(
             {
                 '$or':[
@@ -39,8 +39,10 @@
         );
         cur.forEach(function(row){
             food_ids.push(row['business_id'])
-        })
-        print(food_ids.length)
+        });
+        db.business.deleteMany(
+            {'business_id': {'$in': food_ids}}
+        );
         db.reviews.deleteMany(
             {'business_id': {'$in': food_ids}}
         );
