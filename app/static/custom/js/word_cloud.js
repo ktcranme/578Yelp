@@ -9,8 +9,8 @@ var chart = Highcharts.chart('word-cloud-panel', {
     type: 'wordcloud',
     data: [],
     name: 'Occurrences',
-    minFontSize: 10,
-    maxFontSize: 50
+    minFontSize: 25,
+    maxFontSize: 100
   }],
   title: {
     text: 'Review word cloud'
