@@ -21,7 +21,8 @@
 
 2. Create an index on the date column. Use mongo cli or Robo3T
 
-        db.reviews.createIndex({'date':1})
+        db.reviews.createIndex({'date': 1, 'business_id': 1})
+        db.reviews.createIndex({'business_id': 1, 'date': 1})
 
 # Delete non-restaurants and canadian establishments
 1. Run on mongo cli or a client
