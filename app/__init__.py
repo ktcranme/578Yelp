@@ -4,10 +4,15 @@ import requests
 
 
 def is_prod():
-    r = requests.get('http://metadata.google.internal')
-    if r.headers.get('Metadata-Flavor', None) == 'Google':
-        return True
-    return False
+    try:
+        r = requests.get('http://metadata.google.internal')
+        if r.headers.get('Metadata-Flavor', None) == 'Google':
+            print("running prod")
+            return True
+    except Exception as e:
+        print(e)
+        print("running local")
+        return False
 
 
 def create_app():
