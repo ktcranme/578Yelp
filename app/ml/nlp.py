@@ -15,10 +15,10 @@ class WordCloud():
         self.docs = docs
         self.ratings = ratings
         self.disablelayers = ['parser', 'ner', 'textcat']
-        self.pos = ['NOUN', 'PROPN']
+        self.pos = ['PROPN']
         self.nlp = spacy.load('en', disable=self.disablelayers)
         self.color_range = ['#c70039', '#c70039',
-                            '#ffd800', '#6fb98f', '#6fb98f', '#2b580c']
+                            '#ffd800', '#6fb98f', '#2b580c']
 
     def getCounter(self):
         """Generates Counter of words with their sentiment colors
@@ -37,9 +37,10 @@ class WordCloud():
                     word_count[token.lemma_] += 1
                     word_rating[token.lemma_].append(self.ratings[index])
 
-        word_color = {word: self.getColor(ratings)
-                      for word, ratings in word_rating.items()}
-        return word_count, word_color
+        word_color = {word: self.getColor(ratings)[1] for word, ratings in word_rating.items()}
+        word_sentiment = {word: self.getColor(ratings)[0] for word, ratings in word_rating.items()}
+
+        return word_count, word_color, word_sentiment
 
     def getColor(self, ratings):
         """Generates sentiment color from the mean of ratings in which the word exists
@@ -50,5 +51,6 @@ class WordCloud():
         Returns:
             str -- hex color of rating
         """
-        mean_rating = int(round(np.mean(ratings)))
-        return self.color_range[mean_rating]
+        float_rating = np.around(np.mean(ratings), 2)
+        mean_rating = int(float_rating)
+        return float_rating, self.color_range[mean_rating - 1]

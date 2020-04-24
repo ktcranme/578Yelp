@@ -21,14 +21,15 @@ def testing():
         stars.append(each['stars'])
 
     cloud = WordCloud(docs=reviews, ratings=stars)
-    word_count, word_color = cloud.getCounter()
+    word_count, word_color, word_sentiment = cloud.getCounter()
 
     resp = []
     for index, each in enumerate(word_count.most_common(50)):
         resp.append({
             'name': each[0],
             'weight': each[1],
-            'color': word_color[each[0]]
+            'color': word_color[each[0]],
+            'sentiment': word_sentiment[each[0]]
         })
 
     return jsonify(resp), 200
