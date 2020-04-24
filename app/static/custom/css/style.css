@@ -1,10 +1,21 @@
+html{
+    min-height:100vh;/* make sure it is at least as tall as the viewport */
+    position:relative;
+}
+
 body {
 	background-color: #f9f9f9;
+	height:1000px;
 }
 
 .container-fluid {
 	max-width: 90%;
 }
+
+#map {
+	height: 100%;
+}
+
 
 /* #recommender-panel {
 	background:lightblue;
@@ -31,12 +42,12 @@ body {
 	min-height: 50%;
 	height:50%;
 }
-
+*/
 #bottom-row{
-	min-height: 50%;
-	height:50%;
+	min-height: 40%;
+	height:40%;
 }
-
+/*
 html, body {
     height: 100%;
 }
