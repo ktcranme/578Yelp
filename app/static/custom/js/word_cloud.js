@@ -15,17 +15,6 @@ var chart = Highcharts.chart('word-cloud-panel', {
   title: {
     text: 'Review word cloud'
   },
-  chart: {
-    type: 'line',
-    backgroundColor: '#FFFFFF',
-    shadow: {
-      color: 'rgba(0, 0, 0, 0.1)',
-      offsetX: 0,
-      offsetY: 2,
-      opacity: '0.5',
-      width: 10
-    }
-  },
   credits: { enabled: false }
 });
 

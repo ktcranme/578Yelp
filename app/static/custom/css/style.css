@@ -1,4 +1,8 @@
-#recommender-panel {
+body {
+	background-color: #fdfdfd;
+}
+
+/* #recommender-panel {
 	background:lightblue;
 }
 
@@ -41,4 +45,4 @@ html, body {
 #word-cloud-panel {
     height: 100%;
     width: 100%;
-}
+} */
