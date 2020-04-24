@@ -5,7 +5,7 @@ on:
     branches: [ master ]
 
 jobs:
-  deploy_to_aws:
+  deploy_to_gc:
     runs-on: ubuntu-latest
     steps:
       - name: Deploy and restart server
@@ -16,7 +16,7 @@ jobs:
           key: ${{ secrets.KEY }}
           script: |
             cd /home/ashishpadakannaya/578Yelp
-            git pull
+            git pull --rebase
             source /home/ashishpadakannaya/venv/bin/activate
             pip install -r requirements.txt
             deactivate
