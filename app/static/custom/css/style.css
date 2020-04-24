@@ -2,6 +2,10 @@ body {
 	background-color: #f9f9f9;
 }
 
+.container-fluid {
+	max-width: 90%;
+}
+
 /* #recommender-panel {
 	background:lightblue;
 }
