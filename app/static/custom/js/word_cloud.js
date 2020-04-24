@@ -24,11 +24,11 @@ chart.showLoading();
 //  Fetching data
 fetch('/wordCloud/testing')
   .then(res => {
+    chart.hideLoading();
     return res.json();
   })
   .then(data => {
     genWordCloud(data);
-    chart.hideLoading();
   })
   .catch(() => {
     chart.showNoData("Error loading cloud");
