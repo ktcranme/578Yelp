@@ -15,6 +15,13 @@ var chart = Highcharts.chart('word-cloud-panel', {
   title: {
     text: 'Review word cloud'
   },
+  tooltip: {
+    formatter: function () {
+      return '<b>Name: </b>' + this.point.name + '<br>' +
+        '<b>Occurences: </b>' + this.point.weight + '<br>' +
+        '<b>Sentiment: </b>' + this.point.sentiment;
+    }
+  },
   credits: { enabled: false }
 });
 
