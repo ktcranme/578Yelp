@@ -58,15 +58,6 @@
       <div class="row" id="bottom-row">
         <div class="col-8 shadow bg-white rounded" id="map">
           <!-- kevin code goes here -->
-          <script>
-            var map;
-            function initMap() {
-              map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -34.397, lng: 150.644},
-                zoom: 8
-              });
-            }
-          </script>
 
 
 
@@ -114,7 +105,9 @@
     <script src="{{ url_for('static', filename='custom/js/main.js')}}"></script>
     <script src="{{ url_for('static',
       filename='custom/js/word_cloud.js')}}"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAj3NnMsVSzuZeHaoSysgxCKyqOS4l7m0A&callback=initMap"
+    <script src="{{ url_for('static',
+      filename='custom/js/map.js')}}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE4vKarlwoAckgkR2zUMJGP-zxJFo_EtM&callback=initMap"
     async defer></script>
   </body>
 </html>
