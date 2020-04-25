@@ -5,7 +5,7 @@ html{
 
 body {
 	background-color: #f9f9f9;
-	height:1000px;
+	height:750px;
 }
 
 .container-fluid {
@@ -13,7 +13,7 @@ body {
 }
 
 #map {
-	min-height: 500px;
+	min-height: 400px;
 	width: 100px;
 }
 
@@ -44,10 +44,6 @@ body {
 	height:50%;
 }
 */
-#bottom-row{
-	min-height: 40%;
-	height:40%;
-}
 /*
 html, body {
     height: 100%;
