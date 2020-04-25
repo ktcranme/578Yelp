@@ -65,7 +65,7 @@ class wordCloudChart {
 
 
 
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded", function () {
   const businessId = 'XKOAi4J47i-YEhhHfKkPRQ';
   let wcChart = new wordCloudChart(businessId);
   wcChart.createChart();
