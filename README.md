@@ -36,7 +36,7 @@
              food_ids.push(row['business_id'])
         })
 
-        db.checkins.deleteMany({'business_id: {$in: food_ids}})
+        db.checkins.deleteMany({'business_id': {$in: food_ids}})
         db.reviews.deleteMany({'business_id': {$in: food_ids}})
         db.business.deleteMany({'business_id': {$in: food_ids}})
 
