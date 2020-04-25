@@ -33,15 +33,9 @@
 
 
         </div>
-        <div class="col-4" id="ML-panel">
+        <div class="col-4 p-2">
+		  <div class="shadow bg-white rounded" id="heat-map-panel"></div>
           <!-- Need to figure this out -->
-          ML panel
-
-
-
-
-
-
 
 
 
@@ -56,22 +50,16 @@
 
 
       </div>
+	  
       <div class="row" id="bottom-row">
         <div class="col-8 shadow bg-white rounded" id="map">
           <!-- kevin code goes here -->
 
 
-
-
-
-
-
-
-
         </div>
-        <div class="col-4" id="sentiment-panel">
+        <div class="col-4 p-2"> 
+		   <div class="shadow bg-white rounded" id="sentiment-panel"></div>
           <!-- Siddharth code goes here -->
-          sentiment panel
         </div>
 		
       </div>
@@ -92,6 +80,13 @@
       crossorigin="anonymous"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+
+    <!--Additional imports for heatmap-->
+	<script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script> 
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
     <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
     <!-- custom -->
     <script src="{{ url_for('static', filename='custom/js/main.js')}}"></script>
@@ -103,5 +98,7 @@
     async defer></script>
 	  <script src="{{ url_for('static',
       filename='custom/js/sentiment_panel.js')}}"></script>
+	<script src="{{ url_for('static',
+      filename='custom/js/checkin_heatmap.js')}}"></script>
   </body>
 </html>

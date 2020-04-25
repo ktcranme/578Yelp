@@ -16,6 +16,19 @@ def is_prod():
         return False
 
 from app.routes import sentiment_analysis
+from app.routes import checkin_heatmap
+import requests
+
+def is_prod():
+    try:
+        r = requests.get('http://metadata.google.internal')
+        if r.headers.get('Metadata-Flavor', None) == 'Google':
+            print("running prod")
+            return True
+    except Exception as e:
+        print(e)
+        print("running local")
+        return False
 
 def create_app():
     # Construct the core application.
@@ -35,4 +48,5 @@ def create_app():
         app.register_blueprint(word_cloud.word_cloud_bp)
         app.register_blueprint(map.map_bp)
         app.register_blueprint(sentiment_analysis.sentiment_analysis_bp)
+        app.register_blueprint(checkin_heatmap.checkin_heatmap_bp)
         return app
