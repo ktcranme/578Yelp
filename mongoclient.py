@@ -14,7 +14,7 @@ print("starting..")
 restaurants = business_db.getRestaurants()
 print("done")
 print(restaurants[:10])
-out = open("restaurants.json","w",encoding="utf-8")
+out = open("restaurants.json", "w", encoding="utf-8")
 business_ids = set()
 for r in restaurants:
     business_ids.add(r['business_id'])
@@ -25,7 +25,7 @@ print("Added all business ids to the set : It is now...")
 print(len(business_ids))
 
 reviews_db = Reviews()
-out = open("restaurant_reviews.json","w")
+out = open("restaurant_reviews.json", "w")
 print("Now collecting reviews...")
 reviews = reviews_db.getReviews()
 
@@ -34,13 +34,14 @@ for review in reviews:
     json_object = json.dumps(review)
     if review['business_id'] in business_ids:
         print("Writing review : " + str(json_object) + " to the reviews file")
-        out.write(json_object) 
+        out.write(json_object)
         out.write("\n")
     else:
-        print("\n\nThe review : " + str(json_object) + " is not a restaurant review\n\n")
+        print("\n\nThe review : " + str(json_object) +
+              " is not a restaurant review\n\n")
 
 print("Done writing the reviews! Please open up the file restaurant_reviews.json in this directory")
 sys.exit(0)
 
 #print("connection successful")
-#print(client.list_database_names())
+# print(client.list_database_names())
