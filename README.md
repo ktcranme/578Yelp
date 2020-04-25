@@ -27,25 +27,22 @@
 # Delete non-restaurants and canadian establishments
 1. Run on mongo cli or a client
         
-        var food_ids = [];
-        cur = db.business.find(
+        var food_ids = []
+        db.business.find(
             {
                 '$or':[
-                {'categories': {'$not': /.*Restaurants.*/}},
-                    {'state': {'$in': ['AB','BC','MB','NB','NL','NT','NS','NU','ON','PE','QC','SK','YT']}}
+                    {'categories': {'$not': /.*Restaurants.*/}},
+                    {'state': {'$in': ['AB','BC','MB','NB','NL','NT','NS','NU','ON','PE','QC','SK','YT']}},
+                    {'is_open': 0}
                 ]
             },
-            {'business_id': 1, 'categories':1, 'state':1}
-        );
-        cur.forEach(function(row){
-            food_ids.push(row['business_id'])
-        });
-        db.business.deleteMany(
-            {'business_id': {'$in': food_ids}}
-        );
-        db.reviews.deleteMany(
-            {'business_id': {'$in': food_ids}}
-        );
+            {'business_id': 1}
+        ).forEach(row => {
+             food_ids.push(row['business_id'])
+        })
+
+        db.reviews.deleteMany({'business_id': {$in: food_ids}})
+        db.business.deleteMany({'business_id': {$in: food_ids}})
 
 # Run app
 
