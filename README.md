@@ -40,6 +40,12 @@
         db.reviews.deleteMany({'business_id': {$in: food_ids}})
         db.business.deleteMany({'business_id': {$in: food_ids}})
 
+3. Create index
+
+        db.business.createIndex({'business_id': 1})
+        db.reviews.createIndex({'business_id': 1})
+        db.checkins.createIndex({'business_id': 1})
+
 # Run app
 
 1. Run the flask server and head to localhost:5000
