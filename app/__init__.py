@@ -19,6 +19,7 @@ from app.routes import sentiment_analysis
 from app.routes import checkin_heatmap
 import requests
 
+
 def is_prod():
     try:
         r = requests.get('http://metadata.google.internal')
@@ -29,6 +30,7 @@ def is_prod():
         print(e)
         print("running local")
         return False
+
 
 def create_app():
     # Construct the core application.

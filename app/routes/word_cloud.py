@@ -2,10 +2,10 @@ from flask import Blueprint, jsonify, request
 from app.mongo.reviews import Reviews
 from app.mongo.business import Business
 from app.ml.nlp import WordCloud
-
 word_cloud_bp = Blueprint('word_cloud_api', __name__, url_prefix='/wordCloud')
 
-@word_cloud_bp.route('/testing',methods=['GET'])
+
+@word_cloud_bp.route('/testing', methods=['GET'])
 def testing():
     """API to generate word cloud
 
