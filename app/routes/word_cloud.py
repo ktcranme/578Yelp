@@ -24,7 +24,7 @@ def testing():
     res = reviews.getReviews(f=f, cols={'text': 1, 'stars': 1})
     reviews, stars = [], []
     for each in res:
-        reviews.append(each['text'])
+        reviews.append(each['text'].lower())
         stars.append(each['stars'])
 
     cloud = WordCloud(docs=reviews, ratings=stars)
