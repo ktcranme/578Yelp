@@ -8,7 +8,7 @@ from scipy.spatial import distance
 import pickle
 
 
-restaurants = business_db.getRestaurants()
+restaurants = business_db.getBusiness()
 distinct_categories = []
 # input_vector = 
 def get_distinct_categories():
