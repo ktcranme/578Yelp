@@ -14,7 +14,7 @@
   </head>
   <body>
     <!-- Image and text -->
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark sticky-top">
       <a class="navbar-brand mx-auto" href="#">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Yelp_Logo.svg"
@@ -23,46 +23,38 @@
     </nav>
 
     <div class="container-fluid fill">
-      <div class="row" id="top-row">
+
+      <!-- Toprow -->
+      <div class="row p-2" id="top-row">
+        <div class="col-8 shadow bg-white rounded" id="map">
+          <!-- kevin code goes here -->
+        </div>
+        
         <div class="col-4" id="recommender-panel">
           <!-- Nishant code goes here -->
           recommender panel
-
-
-
-
-
         </div>
-        <div class="col-4 p-2">
-          <div class="shadow bg-white rounded" id="heat-map-panel"></div>
-          <!-- Need to figure this out -->
+      </div>
 
+      <!-- Bottomrow -->
+      <div class="row p-2" id="bottom-row">
 
-
-
-        </div>
-
-        <!-- Word cloud -->
-        <div class="col-4 p-2">
+        <div class="col-4">
           <!-- Ashish code goes here code goes here -->
           <div class="shadow bg-white rounded" id="word-cloud-panel"></div>
         </div>
 
-
-      </div>
-
-      <div class="row" id="bottom-row">
-        <div class="col-8 shadow bg-white rounded" id="map">
-          <!-- kevin code goes here -->
-
-
+        <div class="col-4">
+          <div class="shadow bg-white rounded" id="heat-map-panel"></div>
         </div>
-        <div class="col-4 p-2">
+
+        <div class="col-4">
           <div class="shadow bg-white rounded" id="sentiment-panel"></div>
           <!-- Siddharth code goes here -->
         </div>
 
       </div>
+
     </div>
 
     <!-- assets -->
