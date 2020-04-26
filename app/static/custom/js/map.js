@@ -39,7 +39,7 @@ function fillMap(data) {
         //weird syntax is wrapping the function so to preserve the index namespace
         businessCircle.addListener('click', (function(i) { return function() {
             console.log(mapData[i][0]);
-
+            createWordCloudChart(mapData[i][0]);
             //THIS IS WHERE THE ONCLICK EVENT HAPPENS WHEN A USER CLICKS ON A CIRCLE
 
         };})(i));

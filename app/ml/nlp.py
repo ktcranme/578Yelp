@@ -29,7 +29,7 @@ class WordCloud():
         word_count = Counter()
         word_rating = defaultdict(list)
         docs = self.nlp.pipe(
-            self.docs, n_process=mp.cpu_count(), disable=self.disablelayers)
+            self.docs, n_process=1, disable=self.disablelayers)
 
         for index, doc in enumerate(docs):
             for token in doc:
@@ -37,8 +37,10 @@ class WordCloud():
                     word_count[token.lemma_] += 1
                     word_rating[token.lemma_].append(self.ratings[index])
 
-        word_color = {word: self.getColor(ratings)[1] for word, ratings in word_rating.items()}
-        word_sentiment = {word: self.getColor(ratings)[0] for word, ratings in word_rating.items()}
+        word_color = {word: self.getColor(
+            ratings)[1] for word, ratings in word_rating.items()}
+        word_sentiment = {word: self.getColor(
+            ratings)[0] for word, ratings in word_rating.items()}
 
         return word_count, word_color, word_sentiment
 

@@ -1,5 +1,6 @@
 from flask import Blueprint, jsonify, request
 from app.mongo.reviews import Reviews
+from app.mongo.business import Business
 from app.ml.nlp import WordCloud
 word_cloud_bp = Blueprint('word_cloud_api', __name__, url_prefix='/wordCloud')
 
@@ -12,8 +13,13 @@ def testing():
         json -- words with weights and
         sentiment color {'name':, 'weight':, 'color':}
     """
-    reviews = Reviews()
     business_id = request.args.get('business_id')
+    business = Business()
+    business_details = list(business.getBusiness(
+        {'business_id': business_id}, {'name': 1}))
+    business_name = business_details[0]['name'] if business_details else 'None'
+
+    reviews = Reviews()
     f = {'business_id': business_id}
     res = reviews.getReviews(f=f, cols={'text': 1, 'stars': 1})
     reviews, stars = [], []
@@ -34,4 +40,4 @@ def testing():
             'sentiment': word_sentiment[word]
         })
 
-    return jsonify(resp), 200
+    return jsonify({'data': resp, 'name': business_name}), 200
