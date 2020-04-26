@@ -29,7 +29,7 @@ class WordCloud():
         word_count = Counter()
         word_rating = defaultdict(list)
         docs = self.nlp.pipe(
-            self.docs, n_process=1, disable=self.disablelayers)
+            self.docs, n_process=mp.cpu_count(), disable=self.disablelayers)
 
         for index, doc in enumerate(docs):
             for token in doc:
