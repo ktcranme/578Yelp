@@ -4,6 +4,7 @@ function initMap() {
     center: {lat: 33.424564, lng: -111.93},
     zoom: 14
     });
+
 }
 
 
@@ -40,6 +41,7 @@ function fillMap(data) {
         businessCircle.addListener('click', (function(i) { return function() {
             console.log(mapData[i][0]);
             createWordCloudChart(mapData[i][0]);
+            console.log(map.getBounds());
             //THIS IS WHERE THE ONCLICK EVENT HAPPENS WHEN A USER CLICKS ON A CIRCLE
 
         };})(i));
