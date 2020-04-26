@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from app.routes import word_cloud
+from app.routes import map
 import requests
 
 
@@ -31,4 +32,5 @@ def create_app():
 
         # Import parts of our application
         app.register_blueprint(word_cloud.word_cloud_bp)
+        app.register_blueprint(map.map_bp)
         return app
