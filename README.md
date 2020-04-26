@@ -19,6 +19,8 @@
         $ mongoimport -d yelp -c business <yelp_academic_dataset_business.json>
 
         $ mongoimport -d yelp -c reviews <path to yelp_academic_dataset_review.json>
+        
+        $ mongoimport -d yelp -c checkins <path to yelp_academic_dataset_checkin.json>
 
 2. Delete business data which are not restaurants or canadian or closed
         
