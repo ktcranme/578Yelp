@@ -61,7 +61,7 @@ class wordCloudChart {
   //redraw data in chart
   redrawChart = () => {
     this.chart.series[0].setData(this.data);
-    this.chart.setTitle({ text: 'Review word cloud for ' + this.name });
+    this.chart.setTitle({ text: 'Review word cloud : ' + this.name });
     this.chart.redraw();
   }
 
