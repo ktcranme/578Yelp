@@ -44,6 +44,14 @@ function fillMap(data) {
             console.log(map.getBounds());
             //THIS IS WHERE THE ONCLICK EVENT HAPPENS WHEN A USER CLICKS ON A CIRCLE
 
+            //examples pan
+            panMap(Number(data[i][1]), Number(data[i][2]));
+
         };})(i));
     }
+}
+
+
+function panMap(lat, lng) {
+    map.panTo(new google.maps.LatLng(lat,lng));
 }
