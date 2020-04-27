@@ -1,12 +1,14 @@
 from flask import Blueprint, jsonify
 import pandas
+from app.mongo.business import Business
 map_bp = Blueprint('map_api', __name__, url_prefix='/mappath')
 
 
 @map_bp.route('/testing', methods=['GET'])
 def testing():
-    businesses = []
-    with open('app/static/assets/mapData/mapdata.csv') as f:
-        for line in f:
-            businesses.append(line.split(','))
-    return jsonify(businesses), 200
+    businesses = Business()
+    bArr = []
+    bs = businesses.getBusiness()
+    for b in bs:
+        bArr.append([b['business_id'], b['name'], b['latitude'], b['longitude'], b['stars'], b['review_count']])
+    return jsonify(bArr), 200
