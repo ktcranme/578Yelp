@@ -31,7 +31,7 @@ function fillMap(data) {
             clickable: true,
             position: {lat: Number(data[i][2]), lng: Number(data[i][3])},
             title: data[i][1] + "\nReview Count: " + data[i][5] + "\nAvg Stars: " + data[i][4],
-            //icon: get_marker(Number(data[i][4])),     //gives 404 error
+            icon: get_marker(Number(data[i][4])),     //gives 404 error
         });
 
         //weird syntax is wrapping the function so to preserve the index namespace
