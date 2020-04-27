@@ -1,4 +1,4 @@
-var path_to_markers = "app/static/assets/markers/"
+var path_to_markers = "/static/assets/markers/"
 
 var map;
 function initMap() {
