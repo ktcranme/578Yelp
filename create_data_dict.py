@@ -3,13 +3,18 @@ from app.mongo.yelp_client import YelpClient
 from app.mongo.business import Business
 from app.mongo.reviews import Reviews
 import numpy as np
-business_db = Business()
+import copy
 from scipy.spatial import distance
 import pickle
 
-
+business_db = Business()
 restaurants = business_db.getBusiness()
 distinct_categories = []
+
+with open("restaurant_categories.txt", "rb") as fp:
+	b = pickle.load(fp)
+distinct_categories = b[722:]
+
 # input_vector = 
 def get_distinct_categories():
 	for val in restaurants:
@@ -38,24 +43,22 @@ def create_restaurant_vectors():
 		restaurant_dict[bid] = np.array(vec)
 	return restaurant_dict
 
-get_distinct_categories()
+
+
 data_vector_dictionary = create_restaurant_vectors()
 
-with open('data.p', 'wb') as fp:
+with open('data2.p', 'wb') as fp:
     pickle.dump(data_vector_dictionary, fp, protocol=pickle.HIGHEST_PROTOCOL)
 
 array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
 
 
 dist_list = []
-# for key in data_vector_dictionary:
-# 	d = distance.euclidean(array, data_vector_dictionary[key])
-# 	dist_list.append([key,d])
-# dist_list.sort(key=lambda x: x[1])
-# dist_list=sorted(dist_list, key = lambda x: x[1])     
-
-
- 
+for key in data_vector_dictionary:
+	d = distance.euclidean(array, data_vector_dictionary[key])
+	dist_list.append([key,d])
+dist_list.sort(key=lambda x: x[1])
+dist_list=sorted(dist_list, key = lambda x: x[1])     
 
 
 

@@ -8,7 +8,7 @@ from scipy.spatial import distance
 import pickle
 
 
-with open('data.p', 'rb') as fp:
+with open('data2.p', 'rb') as fp:
     data_vector_dictionary = pickle.load(fp)
 
 input_array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
