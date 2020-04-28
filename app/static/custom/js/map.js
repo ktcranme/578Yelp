@@ -1,10 +1,11 @@
+var path_to_markers = "/static/assets/markers/"
+
 var map;
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 33.424564, lng: -111.93},
     zoom: 14
     });
-
 }
 
 
@@ -25,16 +26,12 @@ var mapData;
 function fillMap(data) {
     mapData = data;
     for(var i = 0; i < data.length; i++) {
-        var businessCircle = new google.maps.Circle({
-            strokeColor: '#FF0000',
-            strokeOpacity: 0.8,
-            strokeWeight: 0,
-            fillColor: '#FF0000',
-            fillOpacity: 0.35,
+        var businessCircle = new google.maps.Marker({
             map: map,
             clickable: true,
-            center: {lat: Number(data[i][1]), lng: Number(data[i][2])},
-            radius: data[i][4] * 20
+            position: {lat: Number(data[i][2]), lng: Number(data[i][3])},
+            title: data[i][1] + "\nReview Count: " + data[i][5] + "\nAvg Stars: " + data[i][4],
+            icon: get_marker(Number(data[i][4])),     //gives 404 error
         });
 
         //weird syntax is wrapping the function so to preserve the index namespace
@@ -43,9 +40,9 @@ function fillMap(data) {
             createWordCloudChart(mapData[i][0]);
             console.log(map.getBounds());
             //THIS IS WHERE THE ONCLICK EVENT HAPPENS WHEN A USER CLICKS ON A CIRCLE
-
+            console.log(get_marker(Number(data[i][4])))
             //examples pan
-            panMap(Number(data[i][1]), Number(data[i][2]));
+            panMap(Number(data[i][2]), Number(data[i][3]));
 
         };})(i));
     }
@@ -54,4 +51,27 @@ function fillMap(data) {
 
 function panMap(lat, lng) {
     map.panTo(new google.maps.LatLng(lat,lng));
+}
+
+//sorry this logic is so ugly - couldn't think how to do it cleaner
+function get_marker(avgStars) {
+    if (avgStars < 1.5) {
+        return path_to_markers + "google-map-marker-1small.png";
+    } else if (avgStars < 2) {
+        return path_to_markers + "google-map-marker-15small.png";
+    } else if (avgStars < 2.5) {
+        return path_to_markers + "google-map-marker-2small.png";
+    } else if (avgStars < 3) {
+        return path_to_markers + "google-map-marker-25small.png";
+    } else if (avgStars < 3.5) {
+        return path_to_markers + "google-map-marker-3small.png";
+    } else if (avgStars < 4) {
+        return path_to_markers + "google-map-marker-35small.png";
+    } else if (avgStars < 4.5) {
+        return path_to_markers + "google-map-marker-4small.png";
+    } else if (avgStars < 5) {
+        return path_to_markers + "google-map-marker-45small.png";
+    } else {
+        return path_to_markers + "google-map-marker-5small.png";
+    }
 }
