@@ -12,40 +12,41 @@
 3. Install mongodb
 4. Create database `yelp` with collections `reviews` and `business`
 
-# Import Yelp dataset
+# Import Yelp dataset and clean and create indices
+
 1. Run mongoimport command to read json into your local mongo collections
 
         $ mongoimport -d yelp -c business <yelp_academic_dataset_business.json>
 
         $ mongoimport -d yelp -c reviews <path to yelp_academic_dataset_review.json>
-
-2. Create an index on the date column. Use mongo cli or Robo3T
-
-        db.reviews.createIndex({'date': 1, 'business_id': 1})
-        db.reviews.createIndex({'business_id': 1, 'date': 1})
-
-# Delete non-restaurants and canadian establishments
-1. Run on mongo cli or a client
         
-        var food_ids = [];
-        cur = db.business.find(
+        $ mongoimport -d yelp -c checkins <path to yelp_academic_dataset_checkin.json>
+
+2. Delete business data which are not restaurants or canadian or closed
+        
+        var food_ids = []
+        db.business.find(
             {
                 '$or':[
-                {'categories': {'$not': /.*Restaurants.*/}},
-                    {'state': {'$in': ['AB','BC','MB','NB','NL','NT','NS','NU','ON','PE','QC','SK','YT']}}
+                    {'categories': {'$not': /.*Restaurants.*/}},
+                    {'state': {'$in': ['AB','BC','MB','NB','NL','NT','NS','NU','ON','PE','QC','SK','YT']}},
+                    {'is_open': 0}
                 ]
             },
-            {'business_id': 1, 'categories':1, 'state':1}
-        );
-        cur.forEach(function(row){
-            food_ids.push(row['business_id'])
-        });
-        db.business.deleteMany(
-            {'business_id': {'$in': food_ids}}
-        );
-        db.reviews.deleteMany(
-            {'business_id': {'$in': food_ids}}
-        );
+            {'business_id': 1}
+        ).forEach(row => {
+             food_ids.push(row['business_id'])
+        })
+
+        db.checkins.deleteMany({'business_id': {$in: food_ids}})
+        db.reviews.deleteMany({'business_id': {$in: food_ids}})
+        db.business.deleteMany({'business_id': {$in: food_ids}})
+
+3. Create index
+
+        db.business.createIndex({'business_id': 1})
+        db.reviews.createIndex({'business_id': 1})
+        db.checkins.createIndex({'business_id': 1})
 
 # Run app
 

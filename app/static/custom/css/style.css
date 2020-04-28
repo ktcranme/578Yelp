@@ -13,10 +13,12 @@ body {
 }
 
 #map {
-	min-height: 400px;
-	width: 100px;
+	height: 60vh;
+	width: 100%;
 }
 
+th { font-size: 14px; }
+td { font-size: 14px; }
 
 /* #recommender-panel {
 	background:lightblue;
@@ -31,7 +33,7 @@ body {
 }
 
 #sentiment-panel{
-	background: magenta;
+	background: white;
 }
 
 .row{

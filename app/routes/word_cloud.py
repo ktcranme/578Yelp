@@ -1,23 +1,31 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.mongo.reviews import Reviews
+from app.mongo.business import Business
 from app.ml.nlp import WordCloud
+import re
 word_cloud_bp = Blueprint('word_cloud_api', __name__, url_prefix='/wordCloud')
 
 
-@word_cloud_bp.route('/testing', methods=['GET'])
-def testing():
+@word_cloud_bp.route('/genWordCloud', methods=['GET'])
+def gen_word_cloud():
     """API to generate word cloud
 
     Returns:
         json -- words with weights and
         sentiment color {'name':, 'weight':, 'color':}
     """
+    business_id = request.args.get('business_id')
+    business = Business()
+    business_details = list(business.getBusiness(
+        {'business_id': business_id}, {'name': 1}))
+    business_name = business_details[0]['name'] if business_details else 'None'
+
     reviews = Reviews()
-    f = {'business_id': 'XKOAi4J47i-YEhhHfKkPRQ'}
+    f = {'business_id': business_id}
     res = reviews.getReviews(f=f, cols={'text': 1, 'stars': 1})
     reviews, stars = [], []
     for each in res:
-        reviews.append(each['text'])
+        reviews.append(re.sub(r'\b\S*\.com\S*\b', '', each['text']).lower())
         stars.append(each['stars'])
 
     cloud = WordCloud(docs=reviews, ratings=stars)
@@ -25,11 +33,12 @@ def testing():
 
     resp = []
     for index, each in enumerate(word_count.most_common(50)):
+        word = each[0]
         resp.append({
-            'name': each[0],
+            'name': word,
             'weight': each[1],
-            'color': word_color[each[0]],
-            'sentiment': word_sentiment[each[0]]
+            'color': word_color[word],
+            'sentiment': word_sentiment[word]
         })
 
-    return jsonify(resp), 200
+    return jsonify({'data': resp, 'name': business_name}), 200

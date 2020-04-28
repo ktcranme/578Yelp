@@ -8,12 +8,19 @@
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
       integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
       crossorigin="anonymous">
+    <link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.default.min.css"
+      integrity="sha256-ibvTNlNAB4VMqE5uFlnBME6hlparj5sEr1ovZ3B/bNA="crossorigin="anonymous"
+      />
+    <link rel="stylesheet" type="text/css"
+      href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
     <link rel='stylesheet' href="{{ url_for('static',
       filename='custom/css/style.css')}}">
+    <link rel="shortcut icon" href="">
   </head>
   <body>
     <!-- Image and text -->
-    <nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-dark bg-dark sticky-top">
       <a class="navbar-brand mx-auto" href="#">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/a/ad/Yelp_Logo.svg"
@@ -22,74 +29,50 @@
     </nav>
 
     <div class="container-fluid fill">
-      <div class="row" id="top-row">
-        <div class="col-4" id="recommender-panel">
+
+      <!-- Toprow -->
+      <div class="row p-2" id="top-row">
+        <div class="col-8 p-4 shadow bg-white rounded" id="map">
+          <!-- kevin code goes here -->
+        </div>
+        <div class="col-4 shadow bg-white rounded">
           <!-- Nishant code goes here -->
-          recommender panel
-
-
-
-
-
+          <div id="recommender-panel">
+            <div>
+              <select>
+              </select>
+            </div>
+            <table class="table table-sm" id="rec-table"></table>
+          </div>
         </div>
-        <div class="col-4" id="ML-panel">
-          <!-- Need to figure this out -->
-          ML panel
+      </div>
 
+      <!-- Bottomrow -->
+      <div class="row p-2" id="bottom-row">
 
-
-
-
-
-
-
-
-
-        </div>
-
-        <!-- Word cloud -->
-        <div class="col-4 p-2">
+        <div class="col-4">
           <!-- Ashish code goes here code goes here -->
           <div class="shadow bg-white rounded" id="word-cloud-panel"></div>
         </div>
 
-
-      </div>
-      <div class="row" id="bottom-row">
-        <div class="col-8 shadow bg-white rounded" id="map">
-          <!-- kevin code goes here -->
-
-
-
-
-
-
-
-
-
+        <div class="col-4">
+          <div class="shadow bg-white rounded" id="heat-map-panel"></div>
         </div>
-        <div class="col-4" id="sentiment-panel">
+
+        <div class="col-4">
+          <div class="shadow bg-white rounded" id="sentiment-panel"></div>
           <!-- Siddharth code goes here -->
-          sentiment-panel
-
-
-
-
-
-
-
-
-
-
         </div>
+
       </div>
+
     </div>
 
     <!-- assets -->
     <script src="{{ url_for('static', filename='assets/js/d3.min.js')}}"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-      integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-      crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"
+      integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ="crossorigin="anonymous"></script>
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
       integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -98,8 +81,24 @@
       src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
       integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
       crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/microplugin/0.0.3/microplugin.min.js"
+      integrity="sha256-9UZrVQrjiOOmlikpy2EDDytjXQBC/f/iC9yG6dqCCR4="crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/sifter/0.6.0/sifter.min.js"
+      integrity="sha256-OPRG6xXnYZSE3aI8usa7auAG9o9zHxiF3Cqy2iT5Itc="crossorigin="anonymous"></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/selectize.min.js"
+      integrity="sha256-zwkv+PhVN/CSaFNLrcQ/1vQd3vviSPiOEDvu2GxYxQc="crossorigin="anonymous"></script>
+    <script type="text/javascript" charset="utf8"
+      src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+    <!--Additional imports for heatmap-->
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
     <script src="https://code.highcharts.com/modules/no-data-to-display.js"></script>
     <!-- custom -->
     <script src="{{ url_for('static', filename='custom/js/main.js')}}"></script>
@@ -109,5 +108,11 @@
       filename='custom/js/map.js')}}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCE4vKarlwoAckgkR2zUMJGP-zxJFo_EtM&callback=initMap"
     async defer></script>
+	  <script src="{{ url_for('static',
+      filename='custom/js/sentiment_panel.js')}}"></script>
+    <script src="{{ url_for('static',
+      filename='custom/js/checkin_heatmap.js')}}"></script>
+    <script src="{{ url_for('static',
+      filename='custom/js/recommender.js')}}"></script>
   </body>
 </html>
