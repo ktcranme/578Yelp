@@ -46,7 +46,7 @@ function createMap(name, heat_map) {
     colorAxis: {
       min: 0,
       minColor: '#FFFFFF',
-      maxColor: '#B00020'//Highcharts.getOptions().colors[9]
+      maxColor: '#03a678'
     },
 
     legend: {
