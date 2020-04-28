@@ -2,11 +2,12 @@ from flask import Blueprint, jsonify, request
 from app.mongo.reviews import Reviews
 from app.mongo.business import Business
 from app.ml.nlp import WordCloud
+import re
 word_cloud_bp = Blueprint('word_cloud_api', __name__, url_prefix='/wordCloud')
 
 
-@word_cloud_bp.route('/testing', methods=['GET'])
-def testing():
+@word_cloud_bp.route('/genWordCloud', methods=['GET'])
+def gen_word_cloud():
     """API to generate word cloud
 
     Returns:
@@ -24,7 +25,7 @@ def testing():
     res = reviews.getReviews(f=f, cols={'text': 1, 'stars': 1})
     reviews, stars = [], []
     for each in res:
-        reviews.append(each['text'].lower())
+        reviews.append(re.sub(r'\b\S*\.com\S*\b', '', each['text']).lower())
         stars.append(each['stars'])
 
     cloud = WordCloud(docs=reviews, ratings=stars)
