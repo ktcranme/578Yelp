@@ -56,22 +56,22 @@ function panMap(lat, lng) {
 //sorry this logic is so ugly - couldn't think how to do it cleaner
 function get_marker(avgStars) {
     if (avgStars < 1.5) {
-        return path_to_markers + "google-map-marker-1.png";
+        return path_to_markers + "google-map-marker-1small.png";
     } else if (avgStars < 2) {
-        return path_to_markers + "google-map-marker-15.png";
+        return path_to_markers + "google-map-marker-15small.png";
     } else if (avgStars < 2.5) {
-        return path_to_markers + "google-map-marker-2.png";
+        return path_to_markers + "google-map-marker-2small.png";
     } else if (avgStars < 3) {
-        return path_to_markers + "google-map-marker-25.png";
+        return path_to_markers + "google-map-marker-25small.png";
     } else if (avgStars < 3.5) {
-        return path_to_markers + "google-map-marker-3.png";
+        return path_to_markers + "google-map-marker-3small.png";
     } else if (avgStars < 4) {
-        return path_to_markers + "google-map-marker-35.png";
+        return path_to_markers + "google-map-marker-35small.png";
     } else if (avgStars < 4.5) {
-        return path_to_markers + "google-map-marker-4.png";
+        return path_to_markers + "google-map-marker-4small.png";
     } else if (avgStars < 5) {
-        return path_to_markers + "google-map-marker-45.png";
+        return path_to_markers + "google-map-marker-45small.png";
     } else {
-        return path_to_markers + "google-map-marker-5.png";
+        return path_to_markers + "google-map-marker-5small.png";
     }
 }
