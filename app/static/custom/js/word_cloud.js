@@ -43,7 +43,7 @@ class wordCloudChart {
 
   //fetch data for word cloud
   getWordCloud = () => {
-    fetch('/wordCloud/testing?business_id=' + this.businessId)
+    fetch('/wordCloud/genWordCloud?business_id=' + this.businessId)
       .then(res => {
         this.chart.hideLoading();
         return res.json();
