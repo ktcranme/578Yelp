@@ -1,10 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.mongo.business import Business
 from app.mongo.checkins import Checkins
 from datetime import datetime
 
 checkin_heatmap_bp = Blueprint(
-    'checkin_heatmap_api', __name__, url_prefix='/checkinHeatmap')
+    'checkin_heatmap_api', __name__, url_prefix='/checkinHeatMap')
 
 
 def generateResult(heat_map):
@@ -35,15 +35,13 @@ def genHeatMap(checkin_dates):
 @checkin_heatmap_bp.route('/testing', methods=['GET'])
 def testing():
     resp = []
-    target_name = "Starbucks"
-    address = "3950 Las Vegas Blvd So"
+    business_id = request.args.get('business_id')
 
-    # get the business id from rest name
-    restaurant = Business().getBusiness(
-        f={'name': target_name, 'address': "3950 Las Vegas Blvd So"})
-    business_id = restaurant[0]['business_id']
-
-    print("business id : ", business_id)
+    # get the restaurant name
+    name = Business().getBusiness(
+        f={'business_id': business_id})[0]['name']
+ 
+    print("restaurant name : ", name)
 
     # get the checkins data from business id
     checkins = Checkins()
@@ -60,7 +58,7 @@ def testing():
     result = generateResult(heat_map)
 
     resp = {
-        'name': target_name,
+        'name': name,
         'heat_map': result
     }
 

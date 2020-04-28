@@ -58,14 +58,18 @@ function createChart(series) {
 
 }
 
-fetch('/sentimentAnalysis/testing')
+const createSentimentGraph = (business_id) => {
+fetch('/sentimentAnalysis/testing?business_id=' + business_id)
   .then(res => {
+    console.log("Reached createSentimentGraph...");
+    console.log("Business id  : " + business_id);
     return res.json();
   }).then(data => {
     genSentimentGraph(data);
   }).catch(() => {
     chart.showNoData("Error loading cloud");
   });
+}
 
 genSentimentGraph = (jsondata) => {
   console.log("Reached generate sentiment graph");
@@ -76,7 +80,11 @@ genSentimentGraph = (jsondata) => {
     var obj = { 'name': jsondata[i].name, 'data': jsondata[i].data };
     series.push(obj);
   }
-
   createChart(series);
   console.log("chart redraw done...");
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+  const businessId = 'XKOAi4J47i-YEhhHfKkPRQ';
+  createSentimentGraph(businessId);
+});

@@ -96,21 +96,26 @@ function createMap(name, heat_map) {
 
 }
 
-//  Fetching data
-fetch('/checkinHeatmap/testing')
-  .then(res => {
-    return res.json();
-  })
-  .then(data => {
-    genHeatMap(data);
-  })
-  .catch(() => {
-    chart.showNoData("Error loading cloud");
-  });
-
+const createHeatMap = (business_id) => {
+  fetch('/checkinHeatMap/testing?business_id=' + business_id)
+    .then(res => {
+      console.log("Reached createHeatMap...");
+      console.log("Business id  : " + business_id);
+      return res.json();
+    }).then(data => {
+      genHeatMap(data);
+    }).catch(() => {
+      chart.showNoData("Error loading cloud");
+    });
+  }
 
 genHeatMap = (data) => {
   restaurant = data['name']
   heat_map = data['heat_map']
   createMap(restaurant, heat_map);
 }
+
+document.addEventListener("DOMContentLoaded", function(){
+  const businessId = 'XKOAi4J47i-YEhhHfKkPRQ';
+  createHeatMap(businessId);
+});

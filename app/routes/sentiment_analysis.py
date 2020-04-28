@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from app.mongo.reviews import Reviews
 from app.mongo.business import Business
 import time
@@ -10,32 +10,27 @@ sentiment_analysis_bp = Blueprint(
 @sentiment_analysis_bp.route('/testing', methods=['GET'])
 def testing():
     start = time.time()
-
+    business_id = request.args.get('business_id')
+    print("Business id is : " , business_id)
 # let's get data for a single restaurant and simply display it out first
-    businesses = Business()
-    reviews = Reviews()
 
-    restaurant_list = ["Firehouse Subs"]
-    # ["Dirty South","Chipotle Mexican Grill","Eddie V's Prime Seafood","Firehouse Subs","Flower Child","Wonton Chai Noodle"]
+    reviews = Reviews()
+    business = Business()
     response = []
-    for r in restaurant_list:
-        response.append(getScore(businesses, reviews, r))
+    response.append(getScore(reviews, business, business_id))
 
     print("TIME TAKEN : ", time.time()-start)
     return jsonify(response), 200
 
 
-def getScore(businesses, reviews, target_name):
+def getScore(reviews, business, business_id):
     #   print("getting business..")
 
-    # get the restaurant to obtain its business id.
-    restaurant = businesses.getBusiness(f={'name': target_name})
-    business_info = restaurant[0]
-#   print("getting reviews..")
-
 # get all reviews for that restaurant using its business_id
-    res = reviews.getReviews(f={'business_id': business_info['business_id']})
-#   print("Number of reviews : " , len(res))
+    name = business.getBusiness(f={'business_id' : business_id})[0]['name']
+    print("Data taken from the business table : ", name)
+    res = reviews.getReviews(f={'business_id': business_id})
+    print("Restaurant name : " , name)
 
     total_score = {}
     num_reviews = {}
@@ -65,7 +60,6 @@ def getScore(businesses, reviews, target_name):
         #   print("\n\n")
         #   print("YEAR : " , y)
         #   print("TOTAL SCORE : " , total_score[y])
-
         avg_score = total_score[y]
         if num_reviews[y] != 0:
             avg_score = total_score[y]/num_reviews[y]
@@ -73,5 +67,5 @@ def getScore(businesses, reviews, target_name):
         data.append(avg_score)
     #   print("AVERAGE SCORE : " , avg_score)
 
-    result = {'name': target_name, 'data': data}
+    result = {'name': name, 'data': data}
     return result
