@@ -20,7 +20,7 @@ def recommender_entry():
 ##call recommender here and store data in this variable.
     resp = [{
         'name': "Domino's Pizza",
-        'business_id' : '1tUUCVKiFRfocWjKJgL3Gg'
+        'business_id' : '1tUUCVKiFRfocWjKJgL3Gg',
         'latitude' : 50.9324294753,
         'longitude' : -113.9830968356,
         'stars' : 1.5 
