@@ -17,6 +17,10 @@ body {
 	width: 100%;
 }
 
+.btn-primary {
+	background-color:#00acee;
+}
+
 th { font-size: 14px; }
 td { font-size: 14px; }
 
