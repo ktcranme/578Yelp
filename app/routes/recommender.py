@@ -18,13 +18,19 @@ def recommender_entry():
     print(type(categories))
 
 ##call recommender here and store data in this variable.
-    resp = [{
-        'name': "Domino's Pizza",
-        'business_id' : '1tUUCVKiFRfocWjKJgL3Gg',
-        'latitude' : 50.9324294753,
-        'longitude' : -113.9830968356,
-        'stars' : 1.5 
-    }]
+    # resp = [{
+    #     'name': "Domino's Pizza",
+    #     'business_id' : '1tUUCVKiFRfocWjKJgL3Gg',
+    #     'latitude' : 50.9324294753,
+    #     'longitude' : -113.9830968356,
+    #     'stars' : 1.5 
+    # }]
+    inter = recommender()
+    resp = []
+    for val in inter:
+        inter_dict = {'name':val[0], 'business_id':val[4], 'latitude':val[2], 'longitude' : val[3], 'stars':val[1]}
+        resp.append(inter_dict)
+
 
     print("Returning json response..")
     print(resp)
@@ -48,8 +54,9 @@ def recommender():
     for i in range(0,topk):
 	    for val in restaurants:
 		    if (val['business_id'] == dist_list[i][0]):
-			    restaurant_display_list.append([val['name'],val['stars']]) 
+			    restaurant_display_list.append([val['name'],val['stars'],val['latitude'],val['longitude'],val['business_id']]) 
 
-    restaurant_display_list=sorted(restaurant_display_list, key = lambda x: x[1], reverse=True)     
-    for val in restaurant_display_list:
-	    print(val[0],val[1])
+    restaurant_display_list=sorted(restaurant_display_list, key = lambda x: x[1], reverse=True)  
+    return restaurant_display_list   
+    # for val in restaurant_display_list:
+	   #  print(val[0],val[1])
