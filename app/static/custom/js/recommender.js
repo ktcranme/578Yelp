@@ -56,15 +56,9 @@ class recPanel {
       })
       .then(data => {
         var topRestaurants = []
-        console.log(data);
         data.forEach(restaurant => {
           topRestaurants.push({
-            name:
-              '<a href="#" onclick="panelObject.restaurantClick(\'' +
-              'sas' +
-              '\')">' +
-              restaurant.name +
-              '</a>',
+            name: `<a href="#" onclick="panelObject.restaurantClick('${escape(restaurant.name)}')">${restaurant.name}</a>`, 
             id: restaurant.name,
             test: restaurant.stars,
             lat: restaurant.latitude,

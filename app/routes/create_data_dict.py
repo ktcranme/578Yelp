@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../..')
 import pymongo
 # from app.mongo.yelp_client import YelpClient
 from app.mongo.business import Business

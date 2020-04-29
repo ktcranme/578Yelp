@@ -4,6 +4,7 @@ from app.mongo.checkins import Checkins
 from datetime import datetime
 from scipy.spatial import distance
 import pickle
+import numpy as np
 
 business_db = Business()
 
