@@ -26,7 +26,11 @@ def recommender_entry():
     #     'longitude' : -113.9830968356,
     #     'stars' : 1.5 
     # }]
-    inter = recommender()
+    
+    category_list = [c for c in categories.split(',')]
+    print("Category list : " , category_list)
+    
+    inter = recommender(category_list)
     resp = []
     for val in inter:
         inter_dict = {'name':val[0], 'business_id':val[4], 'latitude':val[2], 'longitude' : val[3], 'stars':val[1]}
@@ -37,11 +41,25 @@ def recommender_entry():
     print(resp)
     return jsonify(resp), 200
 
-def recommender():
+def recommender(category_list):
     with open('data2.p', 'rb') as fp:
         data_vector_dictionary = pickle.load(fp)
 
     input_array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
+
+    with open("restaurant_categories.txt", "rb") as fp:
+	      b = pickle.load(fp)
+    distinct_categories = b[722:]
+
+    category_map = {}
+    for i in range(0,len(distinct_categories)):
+       category_map[distinct_categories[i]] = i
+
+    for cat in category_list:
+       input_array[category_map[cat]] = 1
+       
+    print("The input array is : \n\n" , input_array)
+
     topk = 10
     restaurant_display_list = []
     dist_list = []
