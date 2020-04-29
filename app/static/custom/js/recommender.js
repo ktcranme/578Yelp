@@ -1,4 +1,3 @@
-
 global_categories = []
 
 class recPanel {
@@ -49,54 +48,38 @@ class recPanel {
     });
   }
 
-
-
   // get the top restaurants from API on select change
   getTopRestaurants = categories => {
-    console.log("Categories : " + categories);
-    var test = [];
-    categories.forEach(cat => {
-      test.push({
-        name:
-          '<a href="#" onclick="panelObject.restaurantClick(\'' +
-          cat +
-          '\')">' +
-          cat +
-          '</a>',
-        id: cat,
-        test: cat
+    fetch('/recommender/testing?categories=' + categories)
+      .then(res => {
+        return res.json()
       })
-    });
-    
-    global_categories = categories;
-    console.log("global categories : " + categories);
+      .then(data => {
+        var topRestaurants = []
+        console.log(data);
+        data.forEach(restaurant => {
+          topRestaurants.push({
+            name:
+              '<a href="#" onclick="panelObject.restaurantClick(\'' +
+              'sas' +
+              '\')">' +
+              restaurant.name +
+              '</a>',
+            id: restaurant.name,
+            test: restaurant.stars,
+            lat: restaurant.latitude,
+            long: restaurant.longitude
+          });
+        });
 
-    this.recTable.clear().draw();
-    this.recTable.rows.add(test);
-    this.recTable.draw();
+        this.recTable.clear().draw();
+        this.recTable.rows.add(topRestaurants);
+        this.recTable.draw();
+      })
+      .catch(() => {
+        chart.showNoData('Error loading data');
+      });
   }
-}
-
-
-
-//function to pass categories and get recommendations
-const generateRecommendations = () => {
-  fetch("/recommender/testing?categories=" + global_categories)
-  .then(res => {
-    console.log("Reached generateRecommendations...");
-    console.log("Categories  : " + global_categories);
-    return res.json();
-  }).then(data => {
-    displayRecommendations(data);
-  }).catch(() => {
-    chart.showNoData("Error loading cloud");
-  });
-}
-
-//function to display recommendations. Ashish's code goes here.
-displayRecommendations = (data) => {
-  console.log("Javascript to display recommendations goes here...");
-  console.log(data);
 }
 
 //draw panels with select and table
