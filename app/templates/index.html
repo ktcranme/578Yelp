@@ -14,6 +14,7 @@
       />
     <link rel="stylesheet" type="text/css"
       href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.css">
     <link rel='stylesheet' href="{{ url_for('static',
       filename='custom/css/style.css')}}">
     <link rel="shortcut icon" href="">
@@ -29,7 +30,7 @@
     </nav>
 
     <div class="container-fluid fill">
-
+      <div id="rateYo"></div>
       <!-- Toprow -->
       <div class="row p-2" id="top-row">
         <div class="col-8 p-4 shadow bg-white rounded" id="map">
@@ -92,6 +93,7 @@
       integrity="sha256-zwkv+PhVN/CSaFNLrcQ/1vQd3vviSPiOEDvu2GxYxQc="crossorigin="anonymous"></script>
     <script type="text/javascript" charset="utf8"
       src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/wordcloud.js"></script>
     <!--Additional imports for heatmap-->
