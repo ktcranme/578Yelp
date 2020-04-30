@@ -48,6 +48,11 @@
         db.reviews.createIndex({'business_id': 1})
         db.checkins.createIndex({'business_id': 1})
 
+4. Create dataset dictionary
+
+1. Run the following command in the home directory to create the data dictionary
+        python3 create_data_dict.py 
+
 # Run app
 
 1. Run the flask server and head to localhost:5000
