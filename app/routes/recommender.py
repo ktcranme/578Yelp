@@ -26,7 +26,7 @@ def recommender(category_list):
         data_vector_dictionary = pickle.load(fp)
     input_array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
 
-    with open("restaurant_categories.txt", "rb") as fp:
+    with open("app/static/restaurant_categories.txt", "rb") as fp:
 	      b = pickle.load(fp)
     distinct_categories = b[722:]
 

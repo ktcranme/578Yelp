@@ -13,7 +13,7 @@ business_db = Business()
 restaurants = business_db.getBusiness()
 distinct_categories = []
 
-with open("restaurant_categories.txt", "rb") as fp:
+with open("app/static/restaurant_categories.txt", "rb") as fp:
 	b = pickle.load(fp)
 distinct_categories = b[722:]
 
