@@ -24,7 +24,11 @@ body {
 .query-builder .selectize-dropdown {
 	height: auto;
 	background-color: inherit;
-  }
+}
+
+.selectize-dropdown{
+	z-index: 20;
+}
 
 th { font-size: 14px; }
 td { font-size: 14px; }

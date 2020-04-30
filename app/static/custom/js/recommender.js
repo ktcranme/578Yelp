@@ -19,7 +19,7 @@ class recPanel {
       bInfo: false,
       pageLength: 5,
       scrollCollapse: true,
-      language: { emptyTable: 'Please add/change preferences or map view' },
+      language: { emptyTable: 'Please add/change preferences' },
       paging: false,
       ordering: false,
       processing: true,
@@ -35,7 +35,6 @@ class recPanel {
     this.recTable.clear().draw();
     this.recTable.rows.add(this.topRestaurants);
     this.recTable.draw();
-    console.log(this.topRestaurants.length);
     //populate stars
     this.topRestaurants.forEach(restaurant=>{
       var business_id = restaurant.business_id;
@@ -48,7 +47,6 @@ class recPanel {
 
   //when top 10 restaurant is clicked, move map
   restaurantClick = business_id => {
-    console.log(business_id);
     var business = this.topRestaurants.filter(restaurant => restaurant.business_id === business_id)[0];
     panMap(business.lat, business.long);
   }
@@ -74,7 +72,10 @@ class recPanel {
 
   // get the top restaurants from API on select change
   getTopRestaurants = categories => {
-    if(!categories.length){ this.recTable.clear().draw(); }
+    if(!categories.length){ 
+      this.recTable.clear().draw();
+      return;
+    }
     fetch('/recommender/testing?categories=' + categories)
       .then(res => {
         return res.json()
