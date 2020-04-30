@@ -6,45 +6,24 @@ from scipy.spatial import distance
 import pickle
 import numpy as np
 
-business_db = Business()
-
-
 recommender_bp = Blueprint(
     'recommender_api', __name__, url_prefix='/recommender')
 
 @recommender_bp.route('/testing', methods=['GET'])
 def recommender_entry():
-    categories = request.args.get('categories')
-    print("In recommender api, categories : " , categories)
-    print(type(categories))
-
-##call recommender here and store data in this variable.
-    # resp = [{
-    #     'name': "Domino's Pizza",
-    #     'business_id' : '1tUUCVKiFRfocWjKJgL3Gg',
-    #     'latitude' : 50.9324294753,
-    #     'longitude' : -113.9830968356,
-    #     'stars' : 1.5 
-    # }]
-    
+    categories = request.args.get('categories')    
     category_list = [c for c in categories.split(',')]
-    print("Category list : " , category_list)
-    
     inter = recommender(category_list)
     resp = []
     for val in inter:
         inter_dict = {'name':val[0], 'business_id':val[4], 'latitude':val[2], 'longitude' : val[3], 'stars':val[1]}
         resp.append(inter_dict)
-
-
-    print("Returning json response..")
-    print(resp)
     return jsonify(resp), 200
 
 def recommender(category_list):
-    with open('data2.p', 'rb') as fp:
+    business_db = Business()
+    with open('app/static/data2.p', 'rb') as fp:
         data_vector_dictionary = pickle.load(fp)
-
     input_array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
 
     with open("restaurant_categories.txt", "rb") as fp:
@@ -57,8 +36,6 @@ def recommender(category_list):
 
     for cat in category_list:
        input_array[category_map[cat]] = 1
-       
-    print("The input array is : \n\n" , input_array)
 
     topk = 10
     restaurant_display_list = []
@@ -77,5 +54,3 @@ def recommender(category_list):
 
     restaurant_display_list=sorted(restaurant_display_list, key = lambda x: x[1], reverse=True)  
     return restaurant_display_list   
-    # for val in restaurant_display_list:
-	   #  print(val[0],val[1])

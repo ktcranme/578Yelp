@@ -17,7 +17,6 @@ with open("restaurant_categories.txt", "rb") as fp:
 	b = pickle.load(fp)
 distinct_categories = b[722:]
 
-# input_vector = 
 def get_distinct_categories():
 	for val in restaurants:
 		print(val['business_id'])
@@ -45,16 +44,11 @@ def create_restaurant_vectors():
 		restaurant_dict[bid] = np.array(vec)
 	return restaurant_dict
 
-
-
 data_vector_dictionary = create_restaurant_vectors()
-
-with open('data2.p', 'wb') as fp:
+with open('app/static/data2.p', 'wb') as fp:
     pickle.dump(data_vector_dictionary, fp, protocol=pickle.HIGHEST_PROTOCOL)
 
 array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
-
-
 dist_list = []
 for key in data_vector_dictionary:
 	d = distance.euclidean(array, data_vector_dictionary[key])

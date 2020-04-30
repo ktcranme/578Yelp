@@ -2,7 +2,7 @@ global_categories = []
 
 class recPanel {
   //initialize table and select button in panel
-  constructor () {
+  constructor() {
     this.recTable = null;
     this.multiSelect = null;
     this.topRestaurants = [];
@@ -22,7 +22,27 @@ class recPanel {
       language: { emptyTable: 'Please add/change preferences or map view' },
       paging: false,
       ordering: false,
-      processing: true
+      processing: true,
+      columnDefs: [
+        { width: "50%", "targets": 0 }
+      ]
+    });
+  }
+
+  //create entries in top 10 table after each category change
+  populateTable = () => {
+    //clear and redraw table
+    this.recTable.clear().draw();
+    this.recTable.rows.add(this.topRestaurants);
+    this.recTable.draw();
+    console.log(this.topRestaurants.length);
+    //populate stars
+    this.topRestaurants.forEach(restaurant=>{
+      var business_id = restaurant.business_id;
+      $(`#${restaurant.business_id}`).rateYo({
+        rating: restaurant.starRating,
+        readOnly: true
+      });
     });
   }
 
@@ -47,35 +67,37 @@ class recPanel {
       options: arr,
       plugins: ['remove_button'],
       placeholder: 'Type in your interests',
+      copyClassesToDropdown: false,
       onChange: val => this.getTopRestaurants(val)
     });
   }
 
   // get the top restaurants from API on select change
   getTopRestaurants = categories => {
+    if(!categories.length){ this.recTable.clear().draw(); }
     fetch('/recommender/testing?categories=' + categories)
       .then(res => {
         return res.json()
       })
       .then(data => {
+        this.topRestaurants = [];
         data.forEach(restaurant => {
           this.topRestaurants.push({
-            name: `<a href="#" onclick="panelObject.restaurantClick('${restaurant.business_id}')">${restaurant.name}</a>`, 
+            name: `<a href="#" onclick="panelObject.restaurantClick('${restaurant.business_id}')">${restaurant.name}</a>`,
             business_id: restaurant.business_id,
-            stars: restaurant.stars,
+            stars: `<div style="text-align: center;margin: 0 auto;" id=${restaurant.business_id}></div>`,
+            starRating: restaurant.stars,
             lat: restaurant.latitude,
             long: restaurant.longitude
           });
         });
-
-        this.recTable.clear().draw();
-        this.recTable.rows.add(this.topRestaurants);
-        this.recTable.draw();
+        this.populateTable();
       })
-      .catch(() => {
-        chart.showNoData('Error loading data');
+      .catch((exception) => {
+        console.log(exception);
       });
   }
+
 }
 
 //draw panels with select and table

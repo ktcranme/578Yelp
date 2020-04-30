@@ -21,6 +21,11 @@ body {
 	background-color:#00acee;
 }
 
+.query-builder .selectize-dropdown {
+	height: auto;
+	background-color: inherit;
+  }
+
 th { font-size: 14px; }
 td { font-size: 14px; }
 
