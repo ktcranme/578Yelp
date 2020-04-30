@@ -11,8 +11,8 @@ recommender_bp = Blueprint(
 
 @recommender_bp.route('/testing', methods=['POST'])
 def recommender_entry():
-    categories = request.args.get('categories')
-    category_list = [c for c in categories.split(',')]
+    data = request.get_json()
+    category_list = data['category_list']
     inter = recommender(category_list)
     resp = []
     for val in inter:
@@ -63,13 +63,6 @@ def recommender(category_list):
     topk = 10
     restaurant_display_list = []
     dist_list = []
-
-    ##fetch the stars
-    stars = business_db.getBusiness(f={},cols = {'business_id' : 1, 'stars' : 1})
-    starmap = {}
-    for r in stars:
-        starmap[r['business_id']] = r['stars']
-    #print(starmap)
 
     for key in data_vector_dictionary:
         d = distance.euclidean(input_array, data_vector_dictionary[key])

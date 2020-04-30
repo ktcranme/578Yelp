@@ -77,7 +77,18 @@ class recPanel {
       return;
     }
 
-    fetch('/recommender/testing?categories=' + categories)
+    var request = {
+     method : 'POST',
+     body : JSON.stringify(
+       {
+         category_list : categories
+       }),
+     headers: { 
+      "Content-type": "application/json; charset=UTF-8"
+    } 
+  } 
+
+    fetch('/recommender/testing',request)
       .then(res => {
         return res.json()
       })
@@ -103,6 +114,7 @@ class recPanel {
 }
 
 //draw panels with select and table
+
 document.addEventListener('DOMContentLoaded', () => {
   panelObject = new recPanel();
   panelObject.drawTable();
