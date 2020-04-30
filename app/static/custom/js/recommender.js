@@ -63,6 +63,7 @@ class recPanel {
       labelField: 'title',
       searchField: 'title',
       options: arr,
+      closeAfterSelect: true,
       plugins: ['remove_button'],
       placeholder: 'Type in your interests',
       copyClassesToDropdown: false,
@@ -76,7 +77,7 @@ class recPanel {
       this.recTable.clear().draw();
       return;
     }
-    fetch('/recommender/testing?categories=' + categories)
+    fetch(`/recommender/testing?categories=${categories}&lat=${map.getCenter().lat()}&lng=${map.getCenter().lng()}`)
       .then(res => {
         return res.json()
       })

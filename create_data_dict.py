@@ -15,37 +15,40 @@ restaurants = business_db.getBusiness()
 distinct_categories = []
 
 with open("app/static/restaurant_categories.txt", "rb") as fp:
-	b = pickle.load(fp)
+    b = pickle.load(fp)
 distinct_categories = b[722:]
 
 def get_distinct_categories():
-	for val in restaurants:
-		print(val['business_id'])
-		category_string = val['categories']
-		category_list = category_string.split(',')
-		for item in category_list:
-			if item.strip() not in distinct_categories:
-				distinct_categories.append(item.strip())
+    for val in restaurants:
+        print(val['business_id'])
+        category_string = val['categories']
+        category_list = category_string.split(',')
+        for item in category_list:
+            if item.strip() not in distinct_categories:
+                distinct_categories.append(item.strip())
 
 
 def create_restaurant_vectors():
-	restaurant_dict = {}
-	cat_to_bid = defaultdict(list)
-	for val in restaurants:
-		category_string = val['categories']
-		inter_category_list = category_string.split(',')
-		category_list = [x.strip() for x in inter_category_list]
-		vec = []
-		for category in distinct_categories:
-			if category in category_list:
-				vec.append(1)
-				cat_to_bid[category].append(val['business_id'])
-			else: 
-				vec.append(0)
+    restaurant_dict = {}
+    cat_to_bid = defaultdict(list)
+    for val in restaurants:
+        category_string = val['categories']
+        inter_category_list = category_string.split(',')
+        category_list = [x.strip() for x in inter_category_list]
+        vec = []
+        for category in distinct_categories:
+            if category in category_list:
+                vec.append(1)
+                cat_to_bid[category].append({
+                    'business_id': val['business_id'],
+                    'coordinates': np.array([float(val['latitude']), float(val['longitude'])])
+                })
+            else: 
+                vec.append(0)
 
-		bid = val['business_id']	
-		restaurant_dict[bid] = np.array(vec)
-	return restaurant_dict, cat_to_bid
+        bid = val['business_id']	
+        restaurant_dict[bid] = np.array(vec)
+    return restaurant_dict, cat_to_bid
 
 # Dumping vectors and category_to_business files
 data_vector_dictionary, cat_to_bid = create_restaurant_vectors()
@@ -58,8 +61,8 @@ with open('app/static/cat_to_bid.p', 'wb') as fp:
 array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
 dist_list = []
 for key in data_vector_dictionary:
-	d = distance.euclidean(array, data_vector_dictionary[key])
-	dist_list.append([key,d])
+    d = distance.euclidean(array, data_vector_dictionary[key])
+    dist_list.append([key,d])
 dist_list.sort(key=lambda x: x[1])
 dist_list=sorted(dist_list, key = lambda x: x[1])     
 
