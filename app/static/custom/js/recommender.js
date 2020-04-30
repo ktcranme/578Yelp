@@ -63,6 +63,7 @@ class recPanel {
       labelField: 'title',
       searchField: 'title',
       options: arr,
+      closeAfterSelect: true,
       plugins: ['remove_button'],
       placeholder: 'Type in your interests',
       copyClassesToDropdown: false,
@@ -76,19 +77,21 @@ class recPanel {
       this.recTable.clear().draw();
       return;
     }
-
+    
     var request = {
-     method : 'POST',
-     body : JSON.stringify(
-       {
-         category_list : categories
-       }),
-     headers: { 
-      "Content-type": "application/json; charset=UTF-8"
-    } 
-  } 
-
-    fetch('/recommender/testing',request)
+      method : 'POST',
+      body : JSON.stringify(
+        {
+          category_list : categories,
+          lat : map.getCenter().lat(),
+          long : map.getCenter().lng()
+        }),
+      headers: { 
+       "Content-type": "application/json; charset=UTF-8"
+     } 
+   } 
+   
+     fetch('/recommender/testing',request)
       .then(res => {
         return res.json()
       })
