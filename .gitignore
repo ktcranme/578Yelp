@@ -5,3 +5,4 @@ datasets
 __pycache__
 *.pyc
 data2.p
+cat_to_bid.p
