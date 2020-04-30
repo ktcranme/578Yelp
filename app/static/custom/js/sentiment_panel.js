@@ -61,8 +61,6 @@ function createChart(series) {
 const createSentimentGraph = (business_id) => {
 fetch('/sentimentAnalysis/testing?business_id=' + business_id)
   .then(res => {
-    console.log("Reached createSentimentGraph...");
-    console.log("Business id  : " + business_id);
     return res.json();
   }).then(data => {
     genSentimentGraph(data);
@@ -72,8 +70,6 @@ fetch('/sentimentAnalysis/testing?business_id=' + business_id)
 }
 
 genSentimentGraph = (jsondata) => {
-  console.log("Reached generate sentiment graph");
-  console.log(jsondata);
   series = [];
   //creating the series to be used.
   for (i = 0; i < jsondata.length; i++) {
@@ -81,7 +77,6 @@ genSentimentGraph = (jsondata) => {
     series.push(obj);
   }
   createChart(series);
-  console.log("chart redraw done...");
 }
 
 document.addEventListener("DOMContentLoaded", function(){

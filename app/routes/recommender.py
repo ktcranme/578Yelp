@@ -9,9 +9,10 @@ import numpy as np
 recommender_bp = Blueprint(
     'recommender_api', __name__, url_prefix='/recommender')
 
-@recommender_bp.route('/testing', methods=['GET'])
+@recommender_bp.route('/testing', methods=['POST'])
 def recommender_entry():
     categories = request.args.get('categories')    
+    print("Categories" + categories)
     category_list = [c for c in categories.split(',')]
     inter = recommender(category_list)
     resp = []
@@ -41,16 +42,34 @@ def recommender(category_list):
     restaurant_display_list = []
     dist_list = []
 
+    ##fetch the stars
+    stars = business_db.getBusiness(f={},cols = {'business_id' : 1, 'stars' : 1})
+    starmap = {}
+    for r in stars:
+        starmap[r['business_id']] = r['stars']
+    #print(starmap)
+
     for key in data_vector_dictionary:
-	    d = distance.euclidean(input_array, data_vector_dictionary[key])
-	    dist_list.append([key,d])
+        d = distance.euclidean(input_array, data_vector_dictionary[key])
+        dist_list.append([key,d])
     dist_list.sort(key=lambda x: x[1])
 
-    restaurants = business_db.getBusiness()
+    business_id_list = []
+    for i in range(0,topk):
+        business_id_list.append(dist_list[i][0])
+
+    print("Business id list is : " , business_id_list)
+
+    restaurants = business_db.getBusiness(f={'business_id' : {'$in' : business_id_list}})
+
+    print("Restaurants is : ")
+    print(restaurants)
+    print(len(restaurants))
+
     for i in range(0,topk):
 	    for val in restaurants:
 		    if (val['business_id'] == dist_list[i][0]):
 			    restaurant_display_list.append([val['name'],val['stars'],val['latitude'],val['longitude'],val['business_id']]) 
 
     restaurant_display_list=sorted(restaurant_display_list, key = lambda x: x[1], reverse=True)  
-    return restaurant_display_list   
+    return restaurant_display_list

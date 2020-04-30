@@ -76,6 +76,7 @@ class recPanel {
       this.recTable.clear().draw();
       return;
     }
+
     fetch('/recommender/testing?categories=' + categories)
       .then(res => {
         return res.json()
@@ -102,7 +103,6 @@ class recPanel {
 }
 
 //draw panels with select and table
-
 document.addEventListener('DOMContentLoaded', () => {
   panelObject = new recPanel();
   panelObject.drawTable();

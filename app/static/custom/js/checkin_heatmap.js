@@ -6,7 +6,6 @@ function getPointCategoryName(point, dimension) {
 }
 
 function createMap(name, heat_map) {
-  console.log("Entered heat map panel..")
   var chart = Highcharts.chart('heat-map-panel', {
 
     chart: {
@@ -99,8 +98,6 @@ function createMap(name, heat_map) {
 const createHeatMap = (business_id) => {
   fetch('/checkinHeatMap/testing?business_id=' + business_id)
     .then(res => {
-      console.log("Reached createHeatMap...");
-      console.log("Business id  : " + business_id);
       return res.json();
     }).then(data => {
       genHeatMap(data);
