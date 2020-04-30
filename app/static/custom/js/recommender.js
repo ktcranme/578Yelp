@@ -48,7 +48,7 @@ class recPanel {
   //when top 10 restaurant is clicked, move map
   restaurantClick = business_id => {
     var business = this.topRestaurants.filter(restaurant => restaurant.business_id === business_id)[0];
-    panMap(business.lat, business.long);
+    panMap(business.lat, business.long, business.business_id);
   }
 
   //render category select button

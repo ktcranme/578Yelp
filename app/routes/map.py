@@ -10,5 +10,5 @@ def testing():
     bArr = []
     bs = businesses.getBusiness()
     for b in bs:
-        bArr.append([b['business_id'], b['name'], b['latitude'], b['longitude'], b['stars'], b['review_count']])
+        bArr.append([b['business_id'], b['name'], b['latitude'], b['longitude'], b['stars'], b['review_count'], b['address']])
     return jsonify(bArr), 200
