@@ -8,6 +8,7 @@ import numpy as np
 import copy
 from scipy.spatial import distance
 import pickle
+from collections import defaultdict
 
 business_db = Business()
 restaurants = business_db.getBusiness()
@@ -29,6 +30,7 @@ def get_distinct_categories():
 
 def create_restaurant_vectors():
 	restaurant_dict = {}
+	cat_to_bid = defaultdict(list)
 	for val in restaurants:
 		category_string = val['categories']
 		inter_category_list = category_string.split(',')
@@ -37,16 +39,21 @@ def create_restaurant_vectors():
 		for category in distinct_categories:
 			if category in category_list:
 				vec.append(1)
+				cat_to_bid[category].append(val['business_id'])
 			else: 
 				vec.append(0)
 
 		bid = val['business_id']	
 		restaurant_dict[bid] = np.array(vec)
-	return restaurant_dict
+	return restaurant_dict, cat_to_bid
 
-data_vector_dictionary = create_restaurant_vectors()
+# Dumping vectors and category_to_business files
+data_vector_dictionary, cat_to_bid = create_restaurant_vectors()
 with open('app/static/data2.p', 'wb') as fp:
     pickle.dump(data_vector_dictionary, fp, protocol=pickle.HIGHEST_PROTOCOL)
+with open('app/static/cat_to_bid.p', 'wb') as fp:
+    pickle.dump(cat_to_bid, fp, protocol=pickle.HIGHEST_PROTOCOL)
+
 
 array = np.array([0] * len(data_vector_dictionary['pQeaRpvuhoEqudo3uymHIQ']))
 dist_list = []
